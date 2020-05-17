@@ -47,9 +47,9 @@ export class UserService {
 
 	async saveUser(newUser: User): Promise<User>{
 	
-		if(!validateObj(newUser)){
+		if(!validateObj(newUser, 'user_id')){
 			throw new InvalidRequestError('Entry is not valid')
-		}
+		}		
 
 		let usernameCheck = await this.userRepo.getUserByUniqueKey('username',newUser.username);
 		let emailCheck = await this.userRepo.getUserByUniqueKey('email', newUser.email);
