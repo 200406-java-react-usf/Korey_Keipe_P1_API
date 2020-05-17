@@ -58,7 +58,7 @@ async getById(id: number): Promise<User> {
 		try {												
 			client = await connectionPool.connect();
 			let sql = `insert into Users (username, password, first_name, last_name, email, role_id) values ($1, $2, $3, $4, $5, $6) returning user_id`;
-			let rs = await client.query(sql, [newUser.username, newUser.password, newUser.firstName, newUser.lastName, newUser.email, +newUser.role_id]);					
+			let rs = await client.query(sql, [newUser.username, newUser.password, newUser.firstName, newUser.lastName, newUser.email, newUser.role_id]);					
 			newUser.user_id = rs.rows[0].id;
 			return newUser;
 		} catch (e) {	
