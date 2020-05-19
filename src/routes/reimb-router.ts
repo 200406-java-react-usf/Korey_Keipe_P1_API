@@ -25,7 +25,7 @@ ReimbRouter.get('/:id', async (req,res)=>{ //managerGuard,
 	}
 });
 
-ReimbRouter.post('', adminGuard, async (req, res) => {
+ReimbRouter.post('', async (req, res) => {
 
 	try{		
 		let payload = await ReimbService.saveReimb(req.body);
