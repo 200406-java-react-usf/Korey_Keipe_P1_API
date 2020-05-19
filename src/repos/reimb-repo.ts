@@ -55,15 +55,15 @@ export class ReimbRepository implements CrudRepository<Reimb> {
 	
 		async save(newReimb: Reimb): Promise<Reimb>{
 	
-			let client: PoolClient;		
+			let client: PoolClient;				
 	
 			try {												
 				client = await connectionPool.connect();
-				let sql = `insert into Reimbursements (amount, submitted, resolved, description, author_id, resolver_id, status_id, type_id) values ($1, current_timestamp, null, $2, $3, null, $4, $5) returning id`;
-				let rs = await client.query(sql, [newReimb.amount, newReimb.description, newReimb.author_id, newReimb.status_id, newReimb.type_id]);					
+				let sql = `insert into Reimbursements (amount, submitted, resolved, description, author_id, resolver_id, status_id, type_id) values ($1, current_timestamp, null, $2, $3, null, '1', $4) returning id`;
+				let rs = await client.query(sql, [newReimb.amount, newReimb.description, newReimb.author_id, newReimb.type_id]);					
 				newReimb.id = rs.rows[0].id;
 				return newReimb;
-			} catch (e) {				
+			} catch (e) {			
 				throw new InternalServerError('Save Failed');
 			} finally {
 				client && client.release();

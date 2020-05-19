@@ -42,7 +42,7 @@ export class ReimbService {
 
 	async saveReimb(newReimb: Reimb): Promise<Reimb>{
 	
-		if(!validateObj(newReimb, 'submitted','resolved','resolver_id')){
+		if(!validateObj(newReimb, 'id', 'submitted', 'resolved', 'resolver_id')){
 			throw new InvalidRequestError('Entry is not valid')
 		}
 
