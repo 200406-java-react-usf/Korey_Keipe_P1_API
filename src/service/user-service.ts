@@ -41,7 +41,7 @@ export class UserService {
 			throw new DataNotFoundError(`No user was found with id: ${id}`);
 		}
 
-		return this.passwordHide(user);
+		return user;
 
 	}
 
