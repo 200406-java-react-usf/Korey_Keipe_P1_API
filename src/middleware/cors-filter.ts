@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 
 export function corsFilter(req: Request, res: Response, next) {
 
-    res.header('Access-Control-Allow-Origin', 'http://khk-project-1.s3-website-us-east-1.amazonaws.com'); // http://localhost:3000
+    res.header('Access-Control-Allow-Origin', 'http://localhost:3000'); //  http://khk-project-1.s3-website-us-east-1.amazonaws.com
     res.header('Access-Control-Allow-Headers', 'Origin, Content-Type, Accept');
     res.header('Access-Control-Allow-Credentials', 'true');
     res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE');
