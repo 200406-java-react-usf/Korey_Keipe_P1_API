@@ -58,7 +58,7 @@ async getById(id: number): Promise<User> {
 		try {												
 			client = await connectionPool.connect();
 			let sql = `insert into Users (username, password, first_name, last_name, email, role_id) values ($1, $2, $3, $4, $5, $6) returning user_id`;
-			let rs = await client.query(sql, [newUser.username, newUser.password, newUser.firstName, newUser.lastName, newUser.email, newUser.role_id]);					
+			let rs = await client.query(sql, [newUser.username, newUser.password, newUser.first_name, newUser.last_name, newUser.email, newUser.role_id]);					
 			newUser.user_id = rs.rows[0].id;
 			return newUser;
 		} catch (e) {	
@@ -79,11 +79,9 @@ async getById(id: number): Promise<User> {
 		try {
 			client = await connectionPool.connect();
 			let sql = `update Users set username = $2, password = $3, first_name = $4, last_name = $5, email = $6, role_id = $7 where user_id = $1`;
-			await client.query(sql , [+updatedUser.user_id, updatedUser.username, updatedUser.password, updatedUser.firstName, updatedUser.lastName, updatedUser.email, +updatedUser.role_id]);
+			await client.query(sql , [updatedUser.user_id, updatedUser.username, updatedUser.password, updatedUser.first_name, updatedUser.last_name, updatedUser.email, updatedUser.role_id]);
 			return true;
-		} catch (e) {
-			console.log(e);
-			
+		} catch (e) {			
 			throw new InternalServerError();
 		} finally {
 			client && client.release();

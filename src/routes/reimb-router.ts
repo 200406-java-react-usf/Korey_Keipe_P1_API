@@ -25,17 +25,17 @@ ReimbRouter.get('/:id', async (req,res)=>{ //managerGuard,
 	}
 });
 
-ReimbRouter.post('', adminGuard, async (req, res) => {
+ReimbRouter.post('', async (req, res) => {
 
 	try{		
-		let payload = await ReimbService.saveReimb(req.body);
+		let payload = await ReimbService.saveReimb(req.body);		
 		return res.status(201).json(payload);
 	}catch (e) {		
 		return res.status(e.status).json(e);
 	}
 });
 
-ReimbRouter.delete('/:id', adminGuard, async (req, res) => {
+ReimbRouter.delete('/:id', managerGuard, async (req, res) => {
 	const id = +req.params.id;
 	try{
 		let payload = await ReimbService.deleteReimbById(id);
@@ -45,7 +45,7 @@ ReimbRouter.delete('/:id', adminGuard, async (req, res) => {
 	}
 });
 
-ReimbRouter.put('', adminGuard, async (req, res) => {
+ReimbRouter.put('', async (req, res) => {
 
 	try{
 		let payload = await ReimbService.updateReimb(req.body);
