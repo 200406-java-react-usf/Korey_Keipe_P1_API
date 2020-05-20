@@ -46,7 +46,7 @@ UserRouter.delete('/:id', adminGuard, async (req, res) => {
 });
 
 UserRouter.put('', adminGuard, async (req, res) => {
-
+	
 	try{
 		let payload = await userService.updateUser(req.body);
 		return res.status(202).json(payload);
