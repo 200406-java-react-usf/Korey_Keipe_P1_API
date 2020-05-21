@@ -112,12 +112,12 @@ export class UserService {
 			
 		authUser = await this.userRepo.getByUsername(username);
 
+		if (!authUser) {
+			throw new AuthenticationError('Authentication Failed.');
+		}
+
 		if(authUser.password !== password){
 			throw new InvalidRequestError('Invalid Password');
-		}
-			
-		if (vaildateEmptyObj(authUser)) {
-			throw new AuthenticationError('Authentication Failed.');
 		}
 
 		return this.passwordHide(authUser);

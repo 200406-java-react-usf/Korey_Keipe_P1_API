@@ -202,23 +202,23 @@ describe('userService', () => {
 
 	// });
 
-	// test('should throw ConflicError when saveUser is envoked and username is not unique', async () => {
+	test('should throw ConflicError when saveUser is envoked and username is not unique', async () => {
 
-	// 	// Arrange
-	// 	expect.hasAssertions();
-	// 	validation.validateObj = jest.fn().mockReturnValue(true);
-	// 	validation.vaildateEmptyObj = jest.fn().mockReturnValue(false);
-	// 	mockRepo.getByUsername = jest.fn().mockReturnValue(mockUsers[0]);
-	// 	mockRepo.getByEmail = jest.fn().mockReturnValue({});
+		// Arrange
+		expect.hasAssertions();
+		validation.validateObj = jest.fn().mockReturnValue(true);
+		mockRepo.getUserByUniqueKey = jest.fn().mockReturnValue(true);
 
-	// 	// Act
-	// 	try {
-	// 		await sut.saveUser(new User (4, 'KoreyKeipe', 'password', 'Korey', 'Keipe', 'test@user.com', 3));
-	// 	} catch (e) {
-	// 	// Accert			
-	// 		expect(e instanceof ConflictError).toBe(true);
-	// 	}
-	// });
+		// Act
+		try {
+			await sut.saveUser(new User (4, 'khkeipe', 'password', 'Korey', 'Keipe', 'test@user.com', 3));
+		} catch (e) {
+		// Accert		
+			console.log(e);
+				
+			expect(e instanceof ConflictError).toBe(true);
+		}
+	});
 
 	test('should throw InvalidRequestError when saveUser is envoked and provided an invalid user', async () => {
 
@@ -306,20 +306,22 @@ describe('userService', () => {
 		}
 	});
 
-	// test('should throw AuthenticationError when authentication is envoked and given an invalid username', async () => {
+	test('should throw AuthenticationError when authentication is envoked and given an invalid username', async () => {
 
-	// 	// Arrange
-	// 	expect.hasAssertions();
-	// 	validation.validateString = jest.fn().mockReturnValue(true);
-	// 	validation.vaildateEmptyObj = jest.fn().mockReturnValue(false);
-	// 	mockRepo.getByUsername = jest.fn().mockReturnValue(true);
+		// Arrange
+		expect.hasAssertions();
+		validation.validateString = jest.fn().mockReturnValue(true);
+		mockRepo.getByUsername = jest.fn().mockImplementation((username: string) => {
+			return new Promise<User> ((resolve) => resolve(mockUsers.find(user => user.username === username)))
+		});
+		validation.vaildateEmptyObj = jest.fn().mockReturnValue(true);
 
-	// 	// Act
-	// 	try{
-	// 		await sut.authentication('','password');
-	// 	} catch (e) {
-	// 	// Accert
-	// 		expect(e instanceof AuthenticationError).toBe(true);
-	// 	}
-	// });
+		// Act
+		try{
+			await sut.authentication('test','test');
+		} catch (e) {
+		// Accert		
+			expect(e instanceof AuthenticationError).toBe(true);
+		}
+	});
 });
