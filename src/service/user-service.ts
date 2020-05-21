@@ -1,16 +1,16 @@
-import { UserRepository } from '../repos/user-repo.js';
-import { User } from '../models/user.js';
+import { UserRepository } from '../repos/user-repo';
+import { User } from '../models/user';
 import { DataNotFoundError,
 	InvalidRequestError,
 	ConflictError,
 	AuthenticationError
-} from '../errors/errors.js';
+} from '../errors/errors';
 import {validateId,
 	validateObj,
 	isPropertyOf,
 	vaildateEmptyObj,
 	validateString
-} from '../util/validation.js';
+} from '../util/validation';
 
 export class UserService {
 
